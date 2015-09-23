@@ -1,0 +1,12 @@
+exports.db_config = {
+  server:"localhost",
+  port:1433,
+  database:"2014_gen2_case",
+  user:"user",
+  password:"password",
+  pool: {
+    max:10,
+    min:0,
+    idleTimeoutMillis:30000
+  }
+}
