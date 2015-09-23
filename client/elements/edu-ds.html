@@ -31,7 +31,7 @@
       ready: function() {
         var sample = {
           query:"select * from Employee where Title=@title",
-          params:{'title':'003'}
+          params:{'title':{type:'VarChar',value:'003'}}
         };
         this.$.dbAjax.body = JSON.stringify(sample);
         this.$.dbAjax.generateRequest();
