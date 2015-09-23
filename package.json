@@ -9,6 +9,7 @@
   "author": "Phongphun Kijsanayothin <kphongph@nu.ac.th>",
   "license": "ISC",
   "dependencies": {
+    "body-parser": "^1.14.0",
     "express": "^4.13.3",
     "mssql": "^2.3.1"
   }

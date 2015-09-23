@@ -1,12 +1,22 @@
 var express = require('express');
+var bodyParser = require('body-parser');
+
+var db = require('./db');
 var config = require('./config').express;
 
 var app = express();
 
+app.use(bodyParser.json());
 app.use(express.static('client'));
 
-app.get('/', function (req, res) {
-  res.json({'status':'ok'});
+app.post('/db',function(req,res) {
+  db.query(req.body,function(err,result) {
+    if(err) {
+       res.json({'err':err});
+    } else {
+       res.json(result);
+    }
+  });
 });
 
 var server = app.listen(config.port, function () {

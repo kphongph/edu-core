@@ -1,14 +1,45 @@
 <link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/iron-ajax/iron-ajax.html">
 
 <dom-module id="edu-ds">
-
   <template>
+
+    <iron-ajax
+      id="dbAjax"
+      url="/db"
+      content-type="application/json"
+      method="POST"
+      handle-as="json"
+      on-response="_handleResponse">
+    </iron-ajax>
+    
     <p>I'm a DOM element. This is my local DOM!</p>
+    <template is="dom-repeat" items="{{result}}">
+      <p>{{item.Title}}</p>
+    </template>
   </template>
 
   <script>
     Polymer({
-      is: "edu-ds"
+      is: "edu-ds",
+      properties: {
+        result: {
+          type: Object,
+          notify:true
+        }
+      },
+      ready: function() {
+        var sample = {
+          query:"select * from Employee where Title=@title",
+          params:{'title':'003'}
+        };
+        this.$.dbAjax.body = JSON.stringify(sample);
+        this.$.dbAjax.generateRequest();
+      },
+      _handleResponse: function() {
+        console.log(this.$.dbAjax.lastResponse);
+        this.set('result',this.$.dbAjax.lastResponse);
+      }
     });
   </script>
 
