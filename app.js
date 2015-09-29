@@ -9,8 +9,12 @@ var app = express();
 app.use(bodyParser.json());
 app.use(express.static('client'));
 
-app.post('/db',function(req,res) {
-  db.query(req.body,function(err,result) {
+app.post('/db/:db',function(req,res) {
+  
+  db.query(req.params.db,req.body,function(err,result) {
+    res.set({
+      'Access-Control-Allow-Origin':'*'
+    });
     if(err) {
        res.json({'err':err});
     } else {

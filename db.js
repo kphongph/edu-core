@@ -1,9 +1,9 @@
 var sql = require('mssql');
 var config = require('./config').db_config;
 
-module.exports.query = function(content,cb) {
+module.exports.query = function(db,content,cb) {
   console.log(content);
-  var connection = new sql.Connection(config);
+  var connection = new sql.Connection(config[db]);
   connection.connect(function(err) {
     if(err) {
       connection.close();
@@ -18,12 +18,16 @@ module.exports.query = function(content,cb) {
     }
     
     ps.prepare(content.query, function(err) {
-      ps.execute(params, function(err, recordset) {
-        if(err) cb(err,null);
-        ps.unprepare(function(err) {
-          cb(null,recordset);
+      if(err) {
+        cb(err,null);
+      } else {
+        ps.execute(params, function(err, recordset) {
+          if(err) cb(err,null);
+          ps.unprepare(function(err) {
+            cb(null,recordset);
+          });
         });
-      });
+      }
     });
   });
 };

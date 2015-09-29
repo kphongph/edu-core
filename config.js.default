@@ -1,12 +1,36 @@
 exports.db_config = {
-  server:"localhost",
-  port:1433,
-  database:"2014_gen2_case",
-  user:"user",
-  password:"password",
-  pool: {
-    max:10,
-    min:0,
-    idleTimeoutMillis:30000
+  'db1': {
+    server:"localhost",
+    port:1433,
+    database:"2014_gen2_case",
+    user:"user",
+    password:"password",
+    pool: {
+      max:10,
+      min:0,
+     idleTimeoutMillis:30000
+    },
+    options: {
+      encrypt:true
+    }
+  },
+  'db2': {
+    server:"localhost",
+    port:1433,
+    database:"2014_gen2_case",
+    user:"user",
+    password:"password",
+    pool: {
+      max:10,
+      min:0,
+     idleTimeoutMillis:30000
+    },
+    options: {
+      encrypt:true
+    }
   }
+}
+
+exports.express = {
+  port:3000
 }
